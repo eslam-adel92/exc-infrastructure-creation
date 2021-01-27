@@ -10,6 +10,10 @@ jobs:
     steps:
       - checkout
       - run: ./create.sh exc-infra-create template.yml
+      - run:
+          command: |
+            aws cloudformation delete-stack --stack-name exc-infra-create --region us-west-2
+          when: on_fail
 
 workflows:
   create_infrastructure:
