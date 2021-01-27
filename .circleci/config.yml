@@ -1,0 +1,18 @@
+version: 2.1
+defaults: &defaults
+  docker:
+    - image: amazon/aws-cli
+
+# Here the start of the exercise from the course:
+jobs:
+  create_infrastructure:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: ./create.sh exc-infra-create template.yml
+
+workflows:
+  create_infrastructure:
+    # Run the welcome/run job in its own container
+    jobs:
+      - create_infrastructure
